@@ -1,0 +1,131 @@
+# Training Configuration Template
+# Copy and modify this for your training runs
+
+# Model Configuration
+model:
+  name: "meta-llama/Llama-2-7b-hf"  # HuggingFace model name
+  precision: "bf16"  # "bf16", "fp16", "fp32"
+  load_in_8bit: false
+  load_in_4bit: false
+
+# Training Configuration
+training:
+  algorithm: "ppo"  # "ppo", "grpo", "on_policy_distillation"
+  total_epochs: 3
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  learning_rate: 1.0e-6
+  max_seq_length: 512
+  max_gen_length: 100
+  
+  # Optimizer settings
+  optimizer: "adamw"  # "adamw", "adam", "sgd"
+  weight_decay: 0.01
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1.0e-8
+  max_grad_norm: 1.0  # Gradient clipping
+  
+  # Learning rate schedule
+  lr_scheduler: "cosine"  # "cosine", "linear", "constant"
+  warmup_steps: 100
+
+# Algorithm-Specific Settings
+ppo:
+  ppo_epochs: 4
+  clip_range: 0.2
+  value_loss_coef: 0.1
+  entropy_coef: 0.01
+  kl_coef: 0.1
+  use_value_function: true
+
+grpo:
+  group_size: 8
+  temperature: 0.8
+  kl_coef: 0.1
+
+distillation:
+  teacher_model: "meta-llama/Llama-2-13b-hf"
+  temperature: 2.0
+  alpha: 0.5  # Balance between KL and CE loss
+  num_generations_per_prompt: 4
+
+# Generation Settings
+generation:
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  do_sample: true
+  num_beams: 1
+
+# Data Configuration
+data:
+  train_path: "data/train.jsonl"
+  val_path: "data/val.jsonl"
+  test_path: "data/test.jsonl"
+  dataset_type: "prompt"  # "prompt", "conversation", "math", "code"
+  num_workers: 4
+  shuffle: true
+
+# Reward Configuration
+reward:
+  type: "model"  # "model", "rule_based", "verifiable"
+  model_name: "OpenAssistant/reward-model-deberta-v3-large"  # if type="model"
+  normalize: true
+  clip_range: [-10, 10]
+
+# Evaluation Configuration
+evaluation:
+  eval_interval: 500  # Evaluate every N steps
+  eval_tasks:
+    - name: "generation"
+      data_path: "data/eval/generation.jsonl"
+    - name: "math"
+      data_path: "data/eval/math.jsonl"
+  save_generations: true
+  num_samples: 100
+
+# Logging Configuration
+logging:
+  use_wandb: true
+  wandb_project: "llm-rl-training"
+  wandb_entity: null  # Your wandb username/team
+  wandb_run_name: null  # Auto-generated if null
+  log_interval: 10
+  log_level: "info"  # "debug", "info", "warning", "error"
+
+# Checkpointing Configuration
+checkpointing:
+  checkpoint_dir: "./checkpoints"
+  save_interval: 500
+  keep_last_n: 3
+  save_optimizer: true
+  save_scheduler: true
+
+# Hardware Configuration
+hardware:
+  device: "cuda"  # "cuda", "cpu", "mps"
+  mixed_precision: true
+  compile_model: false  # torch.compile (requires PyTorch 2.0+)
+  
+  # Distributed training
+  distributed: false
+  world_size: 1
+  backend: "nccl"  # "nccl", "gloo"
+
+# Reproducibility
+seed: 42
+deterministic: false
+
+# Docker/Environment
+environment:
+  cuda_version: "12.1"
+  python_version: "3.10"
+  install_flash_attn: true
+  install_verl: false
+
+# Advanced Settings
+advanced:
+  gradient_checkpointing: false
+  use_8bit_optimizer: false
+  offload_optimizer: false
