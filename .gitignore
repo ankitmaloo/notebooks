@@ -1,0 +1,4 @@
+__pycache__
+.venv/
+/tasks/password-game/keys.py
+keys.py
