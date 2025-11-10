@@ -1,0 +1,28 @@
+# Password Game Baseline Evaluation Requirements
+
+# Core Dependencies
+torch>=2.0.0
+transformers>=4.45.0
+accelerate>=0.20.0
+tokenizers>=0.13.0
+
+# Data and Analysis
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Progress and Utilities
+tqdm>=4.65.0
+
+# Jupyter (if running notebook)
+jupyter>=1.0.0
+ipykernel>=6.25.0
+
+# Optional: Flash Attention (for faster inference)
+# flash-attn>=2.0.0  # Uncomment if you have compatible GPU
+
+# Optional: WandB (for tracking)
+# wandb>=0.15.0  # Uncomment if you want experiment tracking
