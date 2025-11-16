@@ -1,0 +1,428 @@
+{
+  "dataset_name": "Non-Obvious Final Matchday Scheduling Dependencies",
+  "description": "High-difficulty logical reasoning scenarios where scheduling requirements are NOT immediately apparent. These involve hidden interdependencies where seemingly irrelevant teams/matches must be synchronized due to indirect cascading effects on tiebreakers, goal difference margins, or opponent determination.",
+  "difficulty": "very_high",
+  "total_scenarios": 10,
+  "core_challenge": "Identify which 'seemingly irrelevant' matches must be simultaneous and explain the hidden logical chain",
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "1982 World Cup Disgrace of Gijón - Exact Margin Dependency",
+      "competition": "FIFA World Cup",
+      "season": "1982",
+      "stage": "Group 2 Final Match",
+      "complexity_type": "exact_margin_determines_different_outcomes",
+      "standings_before_match": {
+        "Austria": {"played": 2, "points": 4, "gf": 3, "ga": 0, "gd": 3},
+        "Algeria": {"played": 3, "points": 4, "gf": 5, "ga": 5, "gd": 0},
+        "West_Germany": {"played": 2, "points": 2, "gf": 5, "ga": 3, "gd": 2},
+        "Chile": {"played": 3, "points": 0, "gf": 3, "ga": 8, "gd": -5}
+      },
+      "critical_context": "Algeria has ALREADY FINISHED their matches (beat Chile 3-2 on June 24). West Germany vs Austria plays the NEXT DAY (June 25).",
+      "remaining_fixture": {"home": "West Germany", "away": "Austria"},
+      "scenario_question": "Algeria is eliminated with 4 points. West Germany vs Austria play tomorrow. Why does the EXACT scoreline matter, not just win/loss/draw?",
+      "the_hidden_dependency": {
+        "if_germany_wins_1_0": "Germany 4pts +3GD, Austria 4pts +2GD, Algeria 4pts 0GD → Germany & Austria advance",
+        "if_germany_wins_2_0": "Germany 4pts +4GD, Austria 4pts +1GD, Algeria 4pts 0GD → Germany & Austria advance",
+        "if_germany_wins_3_0": "Germany 4pts +5GD, Austria 4pts 0GD, Algeria 4pts 0GD → GOALS SCORED tiebreaker: Algeria 5 > Austria 3 → ALGERIA ADVANCES",
+        "if_germany_wins_4_0_or_more": "Germany 4pts +6GD, Austria 4pts -1GD, Algeria 4pts 0GD → Germany & Algeria advance, AUSTRIA ELIMINATED"
+      },
+      "non_obvious_insight": "A BIGGER German win is WORSE for their European ally Austria. The exact margin (not just result) determines whether Algeria (already finished) qualifies. Each goal changes the outcome.",
+      "what_actually_happened": "Germany won 1-0 (goal in 10th minute), then both teams stopped attacking for 80 minutes - knowing exactly the margin needed",
+      "why_scheduling_failed": "Algeria played a FULL DAY before Germany vs Austria, allowing the Europeans to calculate the exact 'safe zone' (1-0 or 2-0)",
+      "rule_change_caused": "FIFA mandated ALL final group matches must be simultaneous after this scandal",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Disgrace_of_Gijón",
+        "https://www.rsssf.org/tables/82f.html"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Euro 2004 Scandinavian Stitch-Up - Third Team Elimination Without Playing",
+      "competition": "UEFA Euro 2004",
+      "season": "2004",
+      "stage": "Group C Final Matchday",
+      "complexity_type": "head_to_head_mini_table_predetermines_elimination",
+      "standings_after_matchday_2": {
+        "Denmark": {"points": 4, "gf": 2, "ga": 2, "gd": 0},
+        "Sweden": {"points": 4, "gf": 6, "ga": 5, "gd": 1},
+        "Italy": {"points": 2, "gf": 1, "ga": 1, "gd": 0},
+        "Bulgaria": {"points": 0, "gf": 1, "ga": 2, "gd": -1, "status": "eliminated"}
+      },
+      "head_to_head_results_already_completed": {
+        "Italy_vs_Denmark": "0-0",
+        "Italy_vs_Sweden": "1-1",
+        "Denmark_vs_Sweden": "not_yet_played"
+      },
+      "final_matchday_fixtures": [
+        {"match": "Denmark vs Sweden", "both_teams_have_4_points": true},
+        {"match": "Italy vs Bulgaria", "italy_needs_win_and_help": true}
+      ],
+      "scenario_question": "Italy plays already-eliminated Bulgaria. Denmark plays Sweden. Why is Italy's fate ALREADY SEALED before they even kick off?",
+      "the_hidden_dependency": {
+        "if_all_three_finish_on_5_points": "Mini-table uses GOALS SCORED in H2H matches",
+        "italy_h2h_goals": "0 (vs Denmark) + 1 (vs Sweden) = 1 goal",
+        "denmark_h2h_goals": "0 (vs Italy) + X (vs Sweden)",
+        "sweden_h2h_goals": "1 (vs Italy) + Y (vs Denmark)",
+        "critical_insight": "If Denmark-Sweden ends 2-2: Sweden has 3 H2H goals, Denmark has 2, Italy has 1",
+        "result": "Italy ELIMINATED despite going UNBEATEN in the tournament"
+      },
+      "non_obvious_insight": "Italy beats Bulgaria 2-1 and finishes on 5 points UNDEFEATED, but the 2-2 draw between Denmark and Sweden (where both teams qualify) eliminates Italy through H2H goals scored in the mini-league",
+      "what_actually_happened": "Denmark 2-2 Sweden (exact result that mutually qualified both). Italy won 2-1 vs Bulgaria but was eliminated. Italy accused Scandinavians of match-fixing ('biscotto')",
+      "why_scheduling_mattered": "If Italy played first and won big, they could have pressured Denmark/Sweden to need bigger margins. Simultaneous play prevented tactical adjustments",
+      "sources": [
+        "https://thesetpieces.com/latest-posts/euro-2004-denmark-sweden-italian-conspiracy/",
+        "https://www.uefa.com/uefaeuro/history/news/0253-0d7b30f5b932-99ede6995cb0-1000--unbeaten-italy-out-despite-bulgaria-win-in-euro-2004-group-c/"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Premier League 2008 - Portsmouth Has Nothing to Play For",
+      "competition": "Premier League",
+      "season": "2007-08",
+      "matchday": "Final (Matchday 38)",
+      "complexity_type": "safe_team_determines_relegation_of_others",
+      "standings_before_final_matchday": {
+        "position_16": {"team": "Fulham", "points": 33, "gf": 37, "ga": 59, "gd": -22},
+        "position_17": {"team": "Reading", "points": 33, "gf": 37, "ga": 62, "gd": -25},
+        "position_18": {"team": "Birmingham", "points": 32, "gf": 45, "ga": 62, "gd": -17},
+        "already_relegated": {"team": "Derby County", "points": 11, "status": "worst_season_in_PL_history"}
+      },
+      "safe_team": {
+        "team": "Portsmouth",
+        "points": 57,
+        "status": "FA Cup winners, European football secured, NOTHING to play for in league"
+      },
+      "final_matchday_fixtures": [
+        {"home": "Portsmouth", "away": "Fulham", "key": "SAFE team vs RELEGATION team"},
+        {"home": "Reading", "away": "Derby County", "key": "RELEGATED team vs RELEGATION team"},
+        {"home": "Birmingham", "away": "Blackburn"}
+      ],
+      "scenario_question": "Portsmouth are FA Cup winners with nothing at stake. Why must Portsmouth vs Fulham kick off simultaneously with Reading vs Derby?",
+      "the_hidden_dependency": {
+        "fulham_needs": "Win at Portsmouth to survive",
+        "reading_needs": "Better GD than Fulham (currently -25 vs -22)",
+        "portsmouth_motivation": "Zero - they have nothing to play for",
+        "if_portsmouth_plays_first": "Reading knows exact GD margin needed vs relegated Derby"
+      },
+      "non_obvious_insight": "Portsmouth's effort level (despite having nothing to play for) determines whether Reading can calculate their exact required goal margin against already-relegated Derby",
+      "what_actually_happened": "Fulham won 1-0 at Portsmouth (Danny Murphy 76'). Reading beat Derby 4-0 but still relegated on GD (-22 vs -25). Portsmouth's professional performance sealed Reading's fate",
+      "why_scheduling_mattered": "If Portsmouth vs Fulham played early and Fulham lost, Reading would know they only need to avoid defeat. If Fulham won, Reading would know exact GD target",
+      "sources": [
+        "https://www.premierleague.com/news/60019",
+        "https://www.premierleague.com/match/6322"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Premier League 2005 - Charlton's Meaningless Equalizer",
+      "competition": "Premier League",
+      "season": "2004-05",
+      "matchday": "Final (Matchday 38)",
+      "complexity_type": "mid_table_team_late_goal_changes_relegation",
+      "standings_before_final_matchday": {
+        "position_17": {"team": "Crystal Palace", "points": 32, "gf": 41, "ga": 62},
+        "position_18": {"team": "Southampton", "points": 32, "gf": 45, "ga": 66},
+        "position_19": {"team": "Norwich", "points": 32, "gf": 42, "ga": 76},
+        "position_20": {"team": "West Brom", "points": 31, "gf": 36, "ga": 61}
+      },
+      "safe_team": {
+        "team": "Charlton Athletic",
+        "position": "11th",
+        "points": 52,
+        "status": "Completely safe, no European hopes, no relegation danger"
+      },
+      "final_matchday_fixtures": [
+        {"home": "Charlton", "away": "Crystal Palace", "key": "SAFE vs RELEGATION"},
+        {"home": "Manchester United", "away": "Southampton"},
+        {"home": "Fulham", "away": "Norwich"},
+        {"home": "West Brom", "away": "Portsmouth"}
+      ],
+      "scenario_question": "Charlton (11th, safe) play Crystal Palace. Why does this 'dead rubber' for Charlton matter?",
+      "the_hidden_dependency": {
+        "crystal_palace_situation": "Need win to be safe (currently 17th on 32 pts)",
+        "west_brom_situation": "Bottom with 31 pts, need Palace to drop points",
+        "charlton_motivation": "None - mid-table with nothing at stake"
+      },
+      "what_actually_happened": {
+        "minute_71": "Crystal Palace lead 2-1, are surviving",
+        "minute_82": "Jonathan Fortune (Charlton) scores equalizer from free-kick to make it 2-2",
+        "result": "Palace draw 2-2, fail to get win they needed",
+        "cascade_effect": "West Brom win 2-0 vs Portsmouth, survive (first team to survive despite being bottom at Christmas)",
+        "relegated": "Crystal Palace relegated instead"
+      },
+      "non_obvious_insight": "A mid-table player's late equalizer in a 'meaningless' match became the most important goal of the season, relegating Crystal Palace",
+      "why_scheduling_mattered": "If West Brom played first and lost, Palace would know a draw is enough. If Palace played first and won, West Brom would know they need a win",
+      "sources": [
+        "https://premierleague25years.wordpress.com/2018/05/16/memorable-matches-charlton-athletic-2-2-crystal-palace-may-2005/",
+        "https://www.11v11.com/matches/charlton-athletic-v-crystal-palace-15-may-2005-186754/"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "2018 World Cup - Eliminated Poland Determines Japan's Strategy",
+      "competition": "FIFA World Cup",
+      "season": "2018",
+      "stage": "Group H Final Matchday",
+      "complexity_type": "eliminated_team_result_enables_tactical_manipulation",
+      "standings_after_matchday_2": {
+        "Japan": {"points": 4, "gf": 4, "ga": 3, "gd": 1, "yellow_cards": 3},
+        "Senegal": {"points": 4, "gf": 4, "ga": 3, "gd": 1, "yellow_cards": 5},
+        "Colombia": {"points": 3, "gf": 4, "ga": 3, "gd": 1},
+        "Poland": {"points": 0, "gf": 1, "ga": 4, "gd": -3, "status": "ELIMINATED"}
+      },
+      "final_matchday_fixtures": [
+        {"match": "Japan vs Poland", "poland_status": "eliminated"},
+        {"match": "Colombia vs Senegal"}
+      ],
+      "scenario_question": "Poland is eliminated with 0 points. Why does Japan vs Poland matter when Poland has nothing to play for?",
+      "the_hidden_dependency": {
+        "tiebreaker_situation": "Japan and Senegal identical on points, GD, goals scored, H2H (2-2 draw)",
+        "only_tiebreaker_left": "FAIR PLAY POINTS - yellow cards",
+        "japan_yellows": 3,
+        "senegal_yellows": 5,
+        "japan_advantage": "Leads on fair play"
+      },
+      "non_obvious_insight": "Japan's match against ELIMINATED Poland became about avoiding yellow cards while monitoring Colombia-Senegal, not about winning",
+      "what_actually_happened": {
+        "poland_scores": "59th minute - Jan Bednarek gives Poland 1-0 lead",
+        "japan_response": "Rather than chase equalizer, Japan ACCEPTS the defeat",
+        "the_controversy": "Japan passes ball around their own half for final 10+ minutes",
+        "reasoning": "Pushing for goal risks yellow cards or conceding on counter, losing fair play advantage",
+        "result": "Japan lose 0-1 to eliminated Poland but ADVANCE on fair play over Senegal"
+      },
+      "why_scheduling_mattered": "If Japan vs Poland played first, Senegal would know exact scenario. Simultaneous scheduling meant Japan monitored other match while playing eliminated team",
+      "historical_significance": "First time in World Cup history fair play tiebreaker was used",
+      "sources": [
+        "https://www.si.com/soccer/2018/06/28/japan-senegal-eliminated-fair-play-tiebreaker-rule-world-cup",
+        "https://www.scmp.com/sport/soccer/article/2153007/fifa-world-cup-japan-coach-admits-he-told-his-team-play-loss-much"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Netherlands vs Portugal Coefficient - Sporting's Loss Helps Feyenoord",
+      "competition": "UEFA Country Coefficient Rankings",
+      "season": "2022-23",
+      "complexity_type": "cross_country_interdependency_via_coefficient_division",
+      "coefficient_standings_before_april_2023": {
+        "Portugal": {"total_points": 75.0, "num_clubs": 6, "average": 12.500},
+        "Netherlands": {"total_points": 67.5, "num_clubs": 5, "average": 13.500}
+      },
+      "simultaneous_matches_april_13_2023": [
+        {"match": "Feyenoord vs AS Roma", "competition": "Europa League QF"},
+        {"match": "Juventus vs Sporting CP", "competition": "Europa League QF"},
+        {"match": "AZ Alkmaar vs Anderlecht", "competition": "Europa Conference League"}
+      ],
+      "scenario_question": "Portugal has more total points (75 vs 67.5). Why does Sporting CP losing to Juventus help NETHERLANDS overtake PORTUGAL in coefficient ranking?",
+      "the_hidden_dependency": {
+        "the_divisor_effect": "Coefficient = Total Points / Number of Clubs",
+        "portugal_problem": "75 points / 6 clubs = 12.500 average",
+        "netherlands_advantage": "67.5 points / 5 clubs = 13.500 average",
+        "if_sporting_wins": "Portugal earns 2+ bonus points, stays ahead",
+        "if_sporting_loses": "Portugal doesn't earn advancement points, Netherlands overtakes"
+      },
+      "non_obvious_insight": "Netherlands has FEWER total points but HIGHER average because they divide by fewer clubs. A Portuguese team losing actually helps the Netherlands coefficient because it prevents Portugal from earning bonus points that would maintain their lead",
+      "result_and_consequences": {
+        "what_happened": "Sporting lost to Juventus, Feyenoord beat Roma",
+        "ranking_change": "Netherlands overtakes Portugal for 6th place",
+        "6th_place_benefit": "TWO automatic Champions League group stage spots",
+        "7th_place_penalty": "Only ONE automatic group stage spot",
+        "financial_impact": "€15-30 million difference for Portuguese clubs"
+      },
+      "why_scheduling_mattered": "All Europa League knockout matches scheduled same evening. If staggered, teams could adjust based on other results' coefficient implications",
+      "sources": [
+        "https://nltimes.nl/2023/04/14/extra-champions-league-spot-netherlands-sportings-loss",
+        "https://www.dutchnews.nl/2023/04/win-for-feyenoord-gives-nl-two-champions-league-spots-in-2024/"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Bundesliga 2019 - Union Berlin vs Paderborn for Stuttgart's Opponent",
+      "competition": "2. Bundesliga (German Second Division)",
+      "season": "2018-19",
+      "matchday": "Final (Matchday 34)",
+      "complexity_type": "cross_division_playoff_opponent_determination",
+      "standings_before_final_matchday": {
+        "1st": {"team": "Köln", "points": 65, "status": "automatic_promotion"},
+        "2nd": {"team": "Paderborn", "points": 57, "gd": 21},
+        "3rd": {"team": "Union Berlin", "points": 57, "gd": 12}
+      },
+      "bundesliga_context": {
+        "16th_place": "Stuttgart",
+        "playoff_rule": "16th in Bundesliga plays 3rd in 2. Bundesliga"
+      },
+      "final_matchday_fixtures": [
+        {"match": "Bochum vs Union Berlin"},
+        {"match": "Dynamo Dresden vs Paderborn"}
+      ],
+      "scenario_question": "Stuttgart (Bundesliga) will play winner of 3rd place in 2. Bundesliga. Why do Bochum vs Union and Dresden vs Paderborn need to be simultaneous?",
+      "the_hidden_dependency": {
+        "current_situation": "Paderborn 2nd (57 pts, +21 GD), Union Berlin 3rd (57 pts, +12 GD)",
+        "if_paderborn_wins_and_union_draws": "Paderborn stays 2nd (automatic promotion), Union stays 3rd (playoff vs Stuttgart)",
+        "if_union_wins_and_paderborn_loses": "Union jumps to 2nd (automatic promotion), Paderborn drops to 3rd (playoff vs Stuttgart)",
+        "what_actually_happened": "Union drew 2-2, Paderborn lost 1-3"
+      },
+      "non_obvious_insight": "Stuttgart's playoff opponent (Paderborn vs Union Berlin) was determined by matches Stuttgart had NO involvement in",
+      "result": "Union Berlin stayed 3rd, beat Stuttgart in playoff (2-2, 0-0 - away goals), Stuttgart relegated to 2. Bundesliga",
+      "why_scheduling_mattered": "If one 2. Bundesliga match finished first, the other team would know if they're playing Stuttgart or getting automatic promotion",
+      "sources": [
+        "https://www.bundesliga.com/en/bundesliga/news/who-are-union-berlin-promotion-play-off-felix-kroos-urs-fischer-4658",
+        "https://www.dfl.de/en/news/exact-schedule-for-final-matchdays-of-bundesliga-and-bundesliga-2-released/"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "La Liga 2015 Three-Way Tie - Eibar Wins But Gets Relegated",
+      "competition": "La Liga",
+      "season": "2014-15",
+      "matchday": "Final (Matchday 38)",
+      "complexity_type": "final_day_win_irrelevant_due_to_earlier_h2h",
+      "standings_before_final_matchday": {
+        "position_17": {"team": "Deportivo", "points": 32, "gf": 35, "ga": 62},
+        "position_18": {"team": "Granada", "points": 32, "gf": 29, "ga": 64},
+        "position_19": {"team": "Eibar", "points": 32, "gf": 34, "ga": 54}
+      },
+      "head_to_head_results_already_played": {
+        "Deportivo_vs_Granada": "Results from earlier season",
+        "Deportivo_vs_Eibar": "Results from earlier season",
+        "Granada_vs_Eibar": "Results from earlier season",
+        "mini_table_if_all_finish_35_pts": {
+          "1st": "Deportivo - 7 points",
+          "2nd": "Granada - 6 points",
+          "3rd": "Eibar - 2 points"
+        }
+      },
+      "final_matchday_fixtures": [
+        {"home": "Eibar", "away": "Córdoba"},
+        {"home": "Deportivo", "away": "Barcelona"},
+        {"home": "Granada", "away": "Atletico Madrid"}
+      ],
+      "scenario_question": "All three teams on 32 points. If all win and reach 35 points, who gets relegated? Does Eibar's final day result even matter?",
+      "the_hidden_dependency": {
+        "the_paradox": "Eibar's HEAD-TO-HEAD results from MONTHS EARLIER seal their fate",
+        "calculation": "If all three finish on 35 points, mini-table kicks in based on their 4 matches against each other",
+        "eibar_h2h_record": "Only 2 points from 4 matches against Deportivo and Granada",
+        "what_eibar_did": "Won 3-0 vs Córdoba on final day",
+        "what_it_changed": "NOTHING - they were still relegated based on earlier H2H results"
+      },
+      "non_obvious_insight": "Eibar won their final match convincingly but their fate was sealed by results from weeks/months prior. The 'hidden' teams were Deportivo and Granada whose earlier season H2H results determined Eibar's relegation",
+      "why_scheduling_mattered": "Even though outcome was predetermined by H2H, all matches needed to be simultaneous to ensure fair competition (teams might not realize the mathematical inevitability)",
+      "sources": [
+        "https://bleacherreport.com/articles/2474243-la-liga-table-2015-final-standings-following-matchday-38-results"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "2024-25 Champions League Fixed Bracket Cascade",
+      "competition": "UEFA Champions League (New League Phase Format)",
+      "season": "2024-25",
+      "matchday": "Final League Phase Matchday 8",
+      "complexity_type": "fixed_bracket_opponent_determination",
+      "league_phase_standings_before_final_matchday": {
+        "position_11": {"team": "Real Madrid", "points": 12},
+        "position_12": {"team": "Bayern Munich", "points": 12},
+        "position_21": {"team": "Celtic", "points": 12},
+        "position_22": {"team": "Manchester City", "points": 11}
+      },
+      "bracket_rule": "11th plays 22nd, 12th plays 21st in playoff round",
+      "final_matchday_fixtures": [
+        {"match": "Celtic vs Young Boys", "celtic_already_qualified": true},
+        {"match": "Manchester City vs Club Brugge", "city_fighting_to_qualify": true}
+      ],
+      "scenario_question": "Celtic has ALREADY qualified for playoffs (secured top 24). Why does Celtic's exact finishing position (21st vs 22nd) matter?",
+      "the_hidden_dependency": {
+        "if_celtic_21st_city_22nd": "Celtic plays Bayern (12th), City plays Real Madrid (11th)",
+        "if_celtic_22nd_city_21st": "Celtic plays Real Madrid (11th), City plays Bayern (12th)",
+        "celtic_dilemma": "Does Celtic prefer Bayern (managed by former City captain Kompany) or Real Madrid?",
+        "city_dilemma": "Does City prefer Real Madrid (historic rival) or Bayern?"
+      },
+      "non_obvious_insight": "Celtic's 'dead rubber' match against Young Boys determines whether they face Bayern Munich or Real Madrid in playoffs - a massive difference in opponent quality despite Celtic being already qualified",
+      "what_actually_happened": "City beat Brugge 3-1, finished 22nd. Celtic drew with Young Boys, finished 21st. Celtic got Bayern, City got Real Madrid",
+      "why_scheduling_mattered": "If City's match finished first, Celtic would know exact scenario and could adjust their intensity/lineup. All 18 final league phase matches kicked off simultaneously",
+      "sources": [
+        "https://www.cbssports.com/soccer/news/2024-25-champions-league-draw-results-bracket-scenarios-man-city-get-real-madrid-bayern-munich-vs-celtic/",
+        "https://www.skysports.com/football/news/11945/13299935/champions-league-draw-manchester-city-to-face-real-madrid-in-play-offs-as-celtic-take-on-bayern-munich"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Premier League 1996 - Leeds' 0-0 Draw Triggers City Relegation",
+      "competition": "Premier League",
+      "season": "1995-96",
+      "matchday": "Final (Matchday 38)",
+      "complexity_type": "safe_team_draw_creates_cascade_relegation",
+      "standings_before_final_matchday": {
+        "position_17": {"team": "Southampton", "points": 37, "gd": -18},
+        "position_18": {"team": "Coventry", "points": 37, "gd": -17},
+        "position_19": {"team": "Manchester City", "points": 37, "gd": -25}
+      },
+      "safe_team": {
+        "team": "Leeds United",
+        "position": "13th",
+        "points": 43,
+        "status": "Completely safe, nothing to play for"
+      },
+      "final_matchday_fixtures": [
+        {"home": "Leeds", "away": "Coventry", "key": "SAFE vs RELEGATION"},
+        {"home": "Manchester City", "away": "Liverpool"},
+        {"home": "Southampton", "away": "Wimbledon"}
+      ],
+      "scenario_question": "Leeds are safe in 13th. Why does their match against Coventry need to be simultaneous with Manchester City vs Liverpool?",
+      "the_hidden_dependency": {
+        "leeds_motivation": "None - Howard Wilkinson's team has nothing at stake",
+        "coventry_needs": "Any result that keeps them above City on GD",
+        "city_needs": "Other results to go their way",
+        "the_cascade": "Leeds' effort level determines Coventry's result, which determines City's fate"
+      },
+      "what_actually_happened": {
+        "leeds_vs_coventry": "0-0 draw - Leeds offered minimal resistance",
+        "city_vs_liverpool": "2-2 draw",
+        "the_infamous_moment": "City manager Alan Ball told his players wrong information about other scores",
+        "city_time_wasting": "City players passed ball around thinking they were safe based on false info",
+        "result": "City relegated on inferior goal difference (-25 vs -17 for Coventry)"
+      },
+      "non_obvious_insight": "Leeds' goalless draw with Coventry (a match Leeds had zero incentive to win) ensured Coventry survived, while City's misunderstanding of the tactical situation relegated them",
+      "why_scheduling_mattered": "If Leeds vs Coventry played first, City would know exact scenario. The simultaneous scheduling with incorrect information flow (pre-smartphone era) created the famous misinformation tragedy",
+      "sources": [
+        "https://premierleague25years.wordpress.com/2019/01/27/iconic-moments-bizarre-tactics-cost-manchester-city-dear-may-1996/"
+      ]
+    }
+  ],
+  "evaluation_guidelines": {
+    "task_type": "Identify Non-Obvious Scheduling Dependencies",
+    "input_format": "Standings + Fixtures + Context (including 'irrelevant' teams)",
+    "expected_output": "Identify which seemingly irrelevant match must be simultaneous and explain the hidden logical chain",
+    "difficulty_level": "Very High - requires recognizing indirect dependencies",
+    "key_challenge": "Model must see beyond obvious 'same points' scenarios to understand cascading effects",
+    "skills_tested": [
+      "Recognizing indirect causal chains",
+      "Understanding coefficient mathematics and divisor effects",
+      "Head-to-head mini-table construction with third-party effects",
+      "Goal difference margin calculations across matches",
+      "Fair play/disciplinary tiebreaker implications",
+      "Cross-division/cross-country dependencies"
+    ],
+    "common_pitfalls": [
+      "Only identifying teams 'competing for same spot' as needing synchronization",
+      "Ignoring eliminated/safe teams as irrelevant",
+      "Not recognizing how exact margins (not just win/loss) change outcomes",
+      "Missing coefficient division effects",
+      "Overlooking how third team changes H2H mini-table rankings"
+    ]
+  },
+  "pattern_categories": {
+    "safe_team_determines_outcome": "Mid-table team with nothing to play for affects relegation through effort level",
+    "eliminated_team_enables_strategy": "Already-eliminated team's result allows tactical manipulation by others",
+    "exact_margin_dependency": "Each goal changes the mathematical outcome, not just win/draw/loss",
+    "h2h_mini_table_paradox": "Third team joining tie reverses ranking of other two teams",
+    "coefficient_divisor_effect": "Fewer participating clubs means higher average despite lower total points",
+    "cross_division_cascade": "Lower division result determines higher division playoff opponent"
+  },
+  "metadata": {
+    "created_date": "2025-11-16",
+    "version": "2.0",
+    "author": "Claude Code",
+    "purpose": "High-difficulty evaluation dataset testing recognition of hidden interdependencies in sports scheduling",
+    "improvement_over_v1": "Focuses on non-obvious scenarios where casual observers would question the scheduling requirement"
+  }
+}
