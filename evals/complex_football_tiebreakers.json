@@ -1,0 +1,398 @@
+{
+  "dataset_name": "Complex Football/Soccer Tiebreaker Scenarios",
+  "description": "High-difficulty logical reasoning scenarios involving complex sporting rules, multi-way tiebreakers, and counter-intuitive outcomes",
+  "difficulty": "high",
+  "total_scenarios": 10,
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "La Liga 2020-21 Three-Way Relegation Tiebreaker",
+      "competition": "La Liga",
+      "season": "2020-21",
+      "complexity_type": "three_way_head_to_head_mini_table",
+      "teams": ["Huesca", "Elche", "Eibar"],
+      "final_standings": {
+        "position_17": {"team": "Huesca", "played": 37, "won": 7, "drawn": 12, "lost": 18, "points": 33},
+        "position_18": {"team": "Elche", "played": 37, "won": 7, "drawn": 12, "lost": 18, "points": 33},
+        "position_19": {"team": "Valladolid", "played": 37, "won": 5, "drawn": 16, "lost": 16, "points": 31},
+        "position_20": {"team": "Eibar", "played": 37, "won": 6, "drawn": 12, "lost": 19, "points": 30}
+      },
+      "head_to_head_results": {
+        "Huesca_vs_Elche": ["3-1", "0-0"],
+        "Huesca_vs_Eibar": ["1-1", "1-1"],
+        "Elche_vs_Eibar": ["1-0", "1-0"]
+      },
+      "scenario_question": "If Eibar wins on final day against Barcelona, and Huesca and Elche both lose, all three would be on 33 points. Who gets relegated?",
+      "logical_breakdown": {
+        "step_1": "Two-way tiebreaker: Huesca holds H2H over Elche (3-1, 0-0)",
+        "step_2": "Two-way tiebreaker: Huesca tied with Eibar on H2H (1-1, 1-1), but better GD",
+        "step_3": "Two-way tiebreaker: Elche holds H2H over Eibar (1-0, 1-0)",
+        "step_4": "But if THREE-WAY tie at 33 points, construct mini-table",
+        "step_5": "Three-way mini-table: Elche 7 pts, Huesca 6 pts, Eibar 2 pts",
+        "step_6": "Elche survives in 3-way tie despite losing 2-way to Huesca"
+      },
+      "answer": "In two-way tie: Huesca > Elche. In three-way tie: Elche > Huesca > Eibar. The addition of Eibar reverses the ranking between Huesca and Elche.",
+      "why_complex": "Counter-intuitive outcome where adding a third team reverses the ranking of the other two due to mini-table construction rules",
+      "sources": ["https://www.reddit.com/r/LaLiga/comments/ngb9qn/breakdown_of_the_relegation_scenarios/"]
+    },
+    {
+      "id": 2,
+      "title": "Serie A 2004-05 Relegation Playoff",
+      "competition": "Serie A",
+      "season": "2004-05",
+      "complexity_type": "classifica_avulsa_mini_table_plus_playoff",
+      "teams": ["Fiorentina", "Bologna", "Parma"],
+      "final_standings": {
+        "all_three_teams": {"points": 42, "position_battle": "16th-18th"}
+      },
+      "head_to_head_results": {
+        "Fiorentina_vs_Bologna": ["1-0 (home)", "0-0 (away)"],
+        "Fiorentina_vs_Parma": ["2-1 (home)", "0-0 (away)"],
+        "Bologna_vs_Parma": ["3-1 (home)", "2-1 (away)"]
+      },
+      "scenario_question": "Three teams finished on 42 points. How was relegation determined?",
+      "logical_breakdown": {
+        "step_1": "Build mini-table from 6 H2H matches",
+        "step_2": "Fiorentina: 8 pts (W2 D2 L0), GF 3-1, GD +2",
+        "step_3": "Bologna: 7 pts (W2 D1 L1), GF 5-3, GD +2",
+        "step_4": "Parma: 1 pt (W0 D1 L3), GF 3-7, GD -4",
+        "step_5": "Fiorentina safe (most H2H points)",
+        "step_6": "Bologna vs Parma playoff: Parma won 2-1 on aggregate"
+      },
+      "answer": "Fiorentina survived via classifica avulsa (8 pts), Parma survived via playoff (beat Bologna 2-1 aggregate), Bologna relegated",
+      "why_complex": "Bologna had best goal-scoring record in mini-table (5-3) but still relegated due to H2H points taking precedence, then losing playoff",
+      "sources": [
+        "https://www.rsssf.org/tablesi/ital05.html",
+        "https://en.wikipedia.org/wiki/2004–05_Serie_A"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "2018 World Cup Fair Play Tiebreaker",
+      "competition": "FIFA World Cup",
+      "season": "2018",
+      "stage": "Group H",
+      "complexity_type": "fair_play_disciplinary_tiebreaker",
+      "teams": ["Japan", "Senegal"],
+      "final_standings": {
+        "Japan": {"points": 4, "gf": 4, "ga": 4, "gd": 0, "yellow_cards": 4},
+        "Senegal": {"points": 4, "gf": 4, "ga": 4, "gd": 0, "yellow_cards": 6}
+      },
+      "head_to_head_result": "2-2 draw",
+      "fair_play_scoring_system": {
+        "yellow_card": -1,
+        "indirect_red_card": -3,
+        "direct_red_card": -4,
+        "yellow_plus_direct_red": -5
+      },
+      "scenario_question": "Japan and Senegal are tied on points, goal difference, goals scored, and drew 2-2 head-to-head. Who advances?",
+      "logical_breakdown": {
+        "step_1": "Points: Japan 4, Senegal 4 - TIED",
+        "step_2": "Goal difference: Both 0 - TIED",
+        "step_3": "Goals scored: Both 4 - TIED",
+        "step_4": "H2H points: Both 1 (2-2 draw) - TIED",
+        "step_5": "H2H goal difference: Both 0 - TIED",
+        "step_6": "H2H goals scored: Both 2 - TIED",
+        "step_7": "Fair play: Japan -4, Senegal -6",
+        "step_8": "Japan advances (-4 > -6)"
+      },
+      "answer": "Japan advances on fair play points (4 yellow cards = -4 points vs 6 yellow cards = -6 points)",
+      "why_complex": "First time in World Cup history fair play tiebreaker was used; requires understanding 7-level tiebreaker hierarchy and weighted disciplinary scoring",
+      "historical_significance": "First team ever eliminated from World Cup via fair play tiebreaker",
+      "sources": [
+        "https://www.si.com/soccer/2018/06/28/japan-senegal-eliminated-fair-play-tiebreaker-rule-world-cup",
+        "https://www.spokesman.com/stories/2018/jun/28/yellow-cards-against-japan-and-senegal-in-the-worl/"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "1994 World Cup Group E - Four Teams Identical",
+      "competition": "FIFA World Cup",
+      "season": "1994",
+      "stage": "Group E",
+      "complexity_type": "four_team_identical_tiebreaker",
+      "teams": ["Mexico", "Republic of Ireland", "Italy", "Norway"],
+      "final_standings": {
+        "Mexico": {"points": 4, "gf": 3, "ga": 3, "gd": 0},
+        "Ireland": {"points": 4, "gf": 2, "ga": 2, "gd": 0},
+        "Italy": {"points": 4, "gf": 2, "ga": 2, "gd": 0},
+        "Norway": {"points": 4, "gf": 1, "ga": 1, "gd": 0}
+      },
+      "match_results": [
+        "Italy 0-1 Ireland", "Norway 1-0 Mexico",
+        "Italy 1-0 Norway", "Mexico 2-1 Ireland",
+        "Italy 1-1 Mexico", "Ireland 0-0 Norway"
+      ],
+      "scenario_question": "All four teams finished with 4 points and 0 goal difference. How was the group decided?",
+      "logical_breakdown": {
+        "step_1": "Points: All 4 - TIED",
+        "step_2": "Goal difference: All 0 - TIED",
+        "step_3": "Goals scored: Mexico 3, Ireland 2, Italy 2, Norway 1",
+        "step_4": "Mexico 1st (most goals), Norway 4th (fewest goals)",
+        "step_5": "Ireland vs Italy still tied (both 2 goals)",
+        "step_6": "H2H: Ireland beat Italy 1-0",
+        "step_7": "Ireland 2nd, Italy 3rd"
+      },
+      "answer": "Mexico 1st (3 goals), Ireland 2nd (beat Italy H2H), Italy 3rd (lost to Ireland), Norway 4th (1 goal)",
+      "why_complex": "Only group in World Cup history where all 4 teams had identical points AND goal difference; required multi-step tiebreaker with H2H for subset of teams",
+      "sources": [
+        "https://football.fandom.com/wiki/1994_FIFA_World_Cup_Group_E",
+        "https://www.espn.com/soccer/story/_/id/37634215/world-cup-22-tiebreakers-group-stage-points-level-explained"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "1996-97 English Third Division Championship",
+      "competition": "English Football League Third Division",
+      "season": "1996-97",
+      "complexity_type": "goals_scored_vs_goal_difference_anomaly",
+      "teams": ["Wigan Athletic", "Fulham"],
+      "final_standings": {
+        "Wigan": {"played": 46, "won": 26, "drawn": 9, "lost": 11, "gf": 84, "ga": 51, "gd": 33, "points": 87},
+        "Fulham": {"played": 46, "won": 25, "drawn": 12, "lost": 9, "gf": 72, "ga": 38, "gd": 34, "points": 87}
+      },
+      "scenario_question": "Both teams finished on 87 points. Who won the championship?",
+      "logical_breakdown": {
+        "step_1": "Points: 87-87 - TIED",
+        "step_2": "Football League rule (1992-1999): Goals scored BEFORE goal difference",
+        "step_3": "Goals scored: Wigan 84 > Fulham 72",
+        "step_4": "Wigan wins championship",
+        "step_5": "Note: Fulham had better GD (34 vs 33)"
+      },
+      "answer": "Wigan Athletic won the championship despite having inferior goal difference (+33 vs +34) because temporary Football League rules (1992-1999) prioritized goals scored over goal difference",
+      "why_complex": "Counter-intuitive: team conceding 13 more goals won title; only true under specific 7-year rule window; under standard rules Fulham would be champions",
+      "historical_significance": "Only time in English football history a team won championship with inferior goal difference to rival on same points",
+      "sources": [
+        "https://en.wikipedia.org/wiki/1996%E2%80%9397_Wigan_Athletic_F.C._season",
+        "https://www.fchd.info/WIGANA.HTM"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "1963-64 Serie A Championship Playoff",
+      "competition": "Serie A",
+      "season": "1963-64",
+      "complexity_type": "championship_playoff_despite_superior_stats",
+      "teams": ["Bologna", "Inter Milan"],
+      "final_standings": {
+        "Bologna": {"won": 22, "drawn": 10, "lost": 2, "gf": 54, "ga": 18, "gd": 36, "points": 54},
+        "Inter": {"won": 23, "drawn": 8, "lost": 3, "gf": 54, "ga": 21, "gd": 33, "points": 54}
+      },
+      "head_to_head_results": ["Inter 0-0 Bologna", "Bologna 0-0 Inter"],
+      "scenario_question": "Inter had more wins (23 vs 22) and better goal difference (+33 vs +36). Who won the Scudetto?",
+      "logical_breakdown": {
+        "step_1": "Points: 54-54 - TIED",
+        "step_2": "H2H points: 2-2 (both draws) - TIED",
+        "step_3": "H2H goal difference: 0-0 - TIED",
+        "step_4": "1963-64 rules: Playoff required",
+        "step_5": "Playoff (Rome, June 7, 1964): Bologna 2-0 Inter",
+        "step_6": "Bologna wins Scudetto"
+      },
+      "answer": "Bologna won the championship via playoff match (2-0) despite Inter having more wins and Inter having just won the European Cup 11 days prior",
+      "why_complex": "Only playoff in Serie A history to decide Scudetto; team with more wins and European Cup triumph loses; demonstrates how different eras had different tiebreaker systems",
+      "sources": [
+        "https://cultofcalcio.com/throwback-thursday-serie-a-playoff-bologna-inter/",
+        "https://www.rsssf.org/tablesi/ital64.html"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Liverpool 2005-06 Champions League Qualification Crisis",
+      "competition": "UEFA Champions League",
+      "season": "2005-06",
+      "complexity_type": "multi_rule_conflict_qualification",
+      "teams": ["Liverpool", "Everton", "Chelsea", "Arsenal", "Manchester United"],
+      "context": {
+        "issue": "Liverpool won 2004-05 UCL but finished 5th in Premier League",
+        "problem": "England had 4 UCL spots; Everton finished 4th",
+        "conflict": "Title holder should defend but exceeded association limit"
+      },
+      "scenario_question": "Liverpool won the Champions League but finished 5th in the league. Everton finished 4th. Who qualifies for the Champions League?",
+      "logical_breakdown": {
+        "step_1": "Pre-existing rule: Top 4 in league qualify",
+        "step_2": "Association limit: Max 4 teams per country",
+        "step_3": "Tradition: Champions should defend title",
+        "step_4": "UEFA grants one-off exception: 5 English teams allowed",
+        "step_5": "Conditions on Liverpool: Start from 1st Qualifying Round, no country protection",
+        "step_6": "Result: Liverpool qualifies through 3 qualifying rounds",
+        "step_7": "Everton eliminated in qualifying (lost to Villarreal)",
+        "step_8": "Only 4 English teams reached group stage anyway"
+      },
+      "answer": "Both qualified initially (UEFA exception), but Liverpool had to start from First Qualifying Round. Everton (4th place) entered later but was eliminated. This led to permanent rule change: title holders now automatically qualify.",
+      "why_complex": "Multiple conflicting rule systems (domestic vs European vs association limits); unprecedented scenario; led to permanent regulation change (now codified that title holder auto-qualifies even if 5th team from country)",
+      "sources": [
+        "https://en.wikipedia.org/wiki/2005–06_UEFA_Champions_League_qualifying_rounds",
+        "https://en-academic.com/dic.nsf/enwiki/2627362"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "1996-97 EFL Playoff Away Goals Complexity",
+      "competition": "English Football League First Division Play-Off Semi-Final",
+      "season": "1996-97",
+      "complexity_type": "away_goals_after_extra_time",
+      "teams": ["Sheffield United", "Ipswich Town"],
+      "match_results": {
+        "first_leg": {
+          "venue": "Bramall Lane (Sheffield)",
+          "score": "Sheffield United 1-1 Ipswich Town",
+          "goals": {
+            "Sheffield": [{"scorer": "Fjørtoft", "minute": 40}],
+            "Ipswich": [{"scorer": "Stockwell", "minute": 78}]
+          }
+        },
+        "second_leg": {
+          "venue": "Portman Road (Ipswich)",
+          "score": "Ipswich Town 2-2 Sheffield United (after extra time)",
+          "goals": {
+            "Ipswich": [
+              {"scorer": "Scowcroft", "minute": 32},
+              {"scorer": "Gudmundsson", "minute": 73}
+            ],
+            "Sheffield": [
+              {"scorer": "Kachura", "minute": 8},
+              {"scorer": "Walker", "minute": 77}
+            ]
+          }
+        }
+      },
+      "scenario_question": "Aggregate is 3-3 after extra time. Who advances?",
+      "logical_breakdown": {
+        "step_1": "Aggregate: 3-3 (tied)",
+        "step_2": "Extra time played: No goals",
+        "step_3": "Away goals: Ipswich 1 (at Sheffield), Sheffield 2 (at Ipswich)",
+        "step_4": "Sheffield United advances on away goals"
+      },
+      "answer": "Sheffield United advances 3-3 on aggregate, winning on away goals (2-1) despite not winning either leg",
+      "why_complex": "Team advances without winning either match; must track home/away context for each goal; extra time complicates matters; led to rule abolition in 1999-2000",
+      "sources": [
+        "https://en.wikipedia.org/wiki/1997_Football_League_play-offs",
+        "https://www.footballdatabase.eu/en/match/overview/1079330-sheffield_united-ipswich_town"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "2005 UEFA Cup Away Goals in Extra Time",
+      "competition": "UEFA Cup Semi-Final",
+      "season": "2004-05",
+      "complexity_type": "extra_time_away_goal_controversy",
+      "teams": ["AZ Alkmaar", "Sporting CP"],
+      "match_results": {
+        "first_leg": {
+          "venue": "Lisbon",
+          "score": "Sporting 2-1 AZ",
+          "goals": {
+            "Sporting": [{"scorer": "Douala", "minute": 36}, {"scorer": "Pinilla", "minute": 80}],
+            "AZ": [{"scorer": "Landzaat", "minute": 36}]
+          }
+        },
+        "second_leg": {
+          "venue": "Alkmaar",
+          "score": "AZ 3-2 Sporting (after extra time)",
+          "regular_time": "AZ 2-1 Sporting",
+          "goals": {
+            "AZ": [
+              {"scorer": "Perez", "minute": 6},
+              {"scorer": "Huysegems", "minute": 79},
+              {"scorer": "Jaliens", "minute": 109}
+            ],
+            "Sporting": [
+              {"scorer": "Liedson", "minute": 44},
+              {"scorer": "Garcia", "minute": 121}
+            ]
+          }
+        }
+      },
+      "scenario_question": "AZ wins second leg 3-2 in extra time. Aggregate is 4-4. Who advances?",
+      "logical_breakdown": {
+        "step_1": "Aggregate: 4-4 (tied)",
+        "step_2": "AZ away goals: 1 (Landzaat in first leg)",
+        "step_3": "Sporting away goals: 2 (Liedson 44' + Garcia 121' in second leg)",
+        "step_4": "Extra time goal counts as away goal",
+        "step_5": "Sporting advances 4-4 on away goals (2-1)"
+      },
+      "answer": "Sporting CP advances on away goals (2-1) despite AZ winning the second leg 3-2 and scoring in extra time. Garcia's 121st minute header counted as an away goal.",
+      "why_complex": "Team loses on the pitch but advances; extra time goals count as away goals but home team has no chance to score away; AZ scored first in extra time but last-second equalizer eliminated them; exemplifies why away goals rule was eventually abolished",
+      "sources": [
+        "https://www.espn.com/soccer/match/_/gameId/182871/sporting-cp-az-alkmaar",
+        "https://www.transfermarkt.us/az-alkmaar_sporting-lissabon/index/spielbericht/31194"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "UEFA Coefficient Portugal vs Russia",
+      "competition": "UEFA Country Coefficient Ranking",
+      "season": "2019-20",
+      "complexity_type": "decimal_precision_coefficient_mathematics",
+      "teams": ["Portugal", "Russia"],
+      "rankings": {
+        "2018-19": {
+          "Russia": {"position": 6, "coefficient": 50.549},
+          "Portugal": {"position": 7, "coefficient": 48.232}
+        },
+        "2019-20": {
+          "Portugal": {"position": 6, "coefficient": 49.449},
+          "Russia": {"position": 7, "coefficient": 45.549}
+        }
+      },
+      "coefficient_calculation": {
+        "formula": "Total club points / Number of participating clubs",
+        "bonus_points": {
+          "UCL_group_stage": 4.0,
+          "UCL_round_of_16": 5.0,
+          "UCL_quarter_final": 1.0,
+          "UCL_semi_final": 1.0,
+          "UCL_final": 1.0
+        },
+        "match_points": {
+          "win": 2.0,
+          "draw": 1.0
+        }
+      },
+      "scenario_question": "Russia was 6th with 50.549 points, Portugal 7th with 48.232 points. How did Portugal overtake Russia?",
+      "logical_breakdown": {
+        "step_1": "5-year rolling window calculation",
+        "step_2": "2014-15 dropped off (Russia -9.666, Portugal -9.083)",
+        "step_3": "2019-20 added (Russia +4.666, Portugal +10.300)",
+        "step_4": "Net impact: Russia -5.000, Portugal +1.217",
+        "step_5": "Total swing: 6.217 points in Portugal's favor",
+        "step_6": "New rankings: Portugal 49.449, Russia 45.549"
+      },
+      "answer": "Portugal gained 6th place through consistent mid-range performances (10.3 pts) while Russia's disastrous 2019-20 season (4.666 pts) combined with dropping a strong 2014-15 season created a 6.217-point swing",
+      "implications": {
+        "6th_place": "3 UCL spots with 2 automatic group stage entries",
+        "7th_place": "2 UCL spots with no automatic group stage entry",
+        "financial_impact": "€50-80 million annually for Portuguese clubs"
+      },
+      "why_complex": "Requires understanding 5-year rolling windows, decimal precision to 3 places, club-to-country aggregation, and cascading effects of one season's performance on multi-year rankings",
+      "sources": [
+        "https://kassiesa.net/uefa/data/method5/crank2020.html",
+        "https://kassiesa.net/uefa/data/method5/crank2019.html"
+      ]
+    }
+  ],
+  "evaluation_guidelines": {
+    "difficulty_level": "High - requires multi-step logical reasoning",
+    "skills_tested": [
+      "Multi-step mathematical calculations",
+      "Understanding of hierarchical rule systems",
+      "Head-to-head mini-table construction",
+      "Counter-intuitive outcome recognition",
+      "Historical sports rule knowledge",
+      "Decimal precision arithmetic"
+    ],
+    "expected_model_capabilities": [
+      "Parse complex nested conditions",
+      "Apply rules in correct sequential order",
+      "Construct mini-tables from raw match data",
+      "Handle edge cases and exceptions",
+      "Recognize when standard assumptions fail"
+    ]
+  },
+  "metadata": {
+    "created_date": "2025-11-16",
+    "version": "1.0",
+    "author": "Claude Code",
+    "purpose": "Evaluation dataset for testing logical reasoning on complex sporting scenarios"
+  }
+}
