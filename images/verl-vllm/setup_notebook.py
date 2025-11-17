@@ -62,29 +62,28 @@ def main():
     print(f"\n✓ uv available at: {uv_path}/uv")
 
     # Install packages using --system flag (for containers/notebooks)
-    packages = [
-        # PyTorch with CUDA 12.4
-        "--index-url https://download.pytorch.org/whl/cu124 torch==2.9.0 torchvision torchaudio",
-        # vLLM and FlashInfer
-        "vllm",
-        "-i https://flashinfer.ai/whl/cu124/torch2.9/ flashinfer-python",
-        # Ray with extras
-        "'ray[default,serve,tune]' aiohttp aiohttp-cors py-spy gpustat prometheus_client opencensus",
-        # verl and RL dependencies
-        """accelerate codetiming datasets dill hydra-core liger-kernel
-           'numpy<2.0.0' pandas peft 'pyarrow>=19.0.0' pybind11 pylatexenc
-           'tensordict>=0.8.0,<=0.10.0,!=0.9.0' torchdata transformers wandb
-           'packaging>=20.0' uvicorn fastapi latex2sympy2_extended math_verify
-           tensorboard ipykernel jupyter ipywidgets tqdm verl""",
+    install_steps = [
+        ("PyTorch 2.9 with CUDA 12.4", ["--index-url", "https://download.pytorch.org/whl/cu124", "torch==2.9.0", "torchvision", "torchaudio"]),
+        ("vLLM", ["vllm"]),
+        ("FlashInfer", ["-i", "https://flashinfer.ai/whl/cu124/torch2.9/", "flashinfer-python"]),
+        ("Ray with extras", ["ray[default,serve,tune]", "aiohttp", "aiohttp-cors", "py-spy", "gpustat", "prometheus_client", "opencensus"]),
+        ("verl and RL dependencies", [
+            "accelerate", "codetiming", "datasets", "dill", "hydra-core", "liger-kernel",
+            "numpy<2.0.0", "pandas", "peft", "pyarrow>=19.0.0", "pybind11", "pylatexenc",
+            "tensordict>=0.8.0,<=0.10.0,!=0.9.0", "torchdata", "transformers", "wandb",
+            "packaging>=20.0", "uvicorn", "fastapi", "latex2sympy2_extended", "math_verify",
+            "tensorboard", "ipykernel", "jupyter", "ipywidgets", "tqdm", "verl"
+        ]),
     ]
 
-    for pkg_group in packages:
-        success = run_command(
-            f"uv pip install --system {pkg_group}",
-            f"Installing: {pkg_group.split()[0]}..."
-        )
+    for description, packages in install_steps:
+        # Build command with proper quoting
+        cmd_parts = ["uv", "pip", "install", "--system"] + packages
+        cmd = " ".join(f'"{p}"' if any(c in p for c in ['<', '>', '=', '!', '[', ']']) else p for p in cmd_parts)
+
+        success = run_command(cmd, f"Installing: {description}")
         if not success:
-            print(f"Failed to install: {pkg_group}")
+            print(f"Failed to install: {description}")
             return
 
     # Enable HF fast downloads
