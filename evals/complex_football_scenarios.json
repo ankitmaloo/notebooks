@@ -1,0 +1,289 @@
+{
+  "dataset_name": "Complex Football Logic Scenarios",
+  "description": "High-difficulty football/soccer scenarios requiring complex logical reasoning to determine outcomes based on tiebreaker rules",
+  "version": "1.0",
+  "created_date": "2025-11-16",
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "La Liga 2020-21 Three-Way Relegation Tiebreaker",
+      "competition": "La Liga",
+      "season": "2020-21",
+      "type": "relegation",
+      "difficulty": "very_high",
+      "context": "Going into the final matchday, the bottom of the La Liga table shows: Huesca (17th, 33 pts), Elche (18th, 33 pts), Valladolid (19th, 31 pts), Eibar (20th, 30 pts). If Eibar wins their final game against Barcelona, and both Huesca and Elche lose, all three teams would be tied on 33 points.",
+      "head_to_head_records": {
+        "huesca_vs_elche": "Huesca won 3-1 (first leg), drew 0-0 (second leg). Huesca holds two-way tiebreaker.",
+        "huesca_vs_eibar": "Both games 1-1. Tied on head-to-head, Huesca leads on goal difference.",
+        "elche_vs_eibar": "Both legs finished 1-0 to Elche."
+      },
+      "question": "If all three teams (Huesca, Elche, Eibar) finish on 33 points, which team gets relegated and why?",
+      "answer": "In a three-way tie, a mini-league table is created using only matches between the three teams. The three-way head-to-head table shows: Elche (1st, 7 pts: 2W-1D-1L), Huesca (2nd, 6 pts: 1W-2D-1L), Eibar (3rd, 2 pts: 0W-2D-2L). Therefore, Elche would survive, Huesca would be relegated (18th), and Eibar would also be relegated. The key insight is that two-way tiebreakers can flip when a third team is introduced - Huesca beats Elche head-to-head in isolation, but loses to Elche in the three-way mini-league.",
+      "key_rule": "La Liga uses head-to-head mini-league for 3+ team ties, not pairwise comparisons",
+      "sources": [
+        "https://theanalyst.com/2023/06/la-liga-relegation-permutations",
+        "https://www.cbssports.com/soccer/news/premier-league-la-liga-bundesliga-serie-a-ligue-1-tiebreakers-and-table-including-promotion-relegation/"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Japan vs Senegal Fair Play Tiebreaker - 2018 World Cup",
+      "competition": "FIFA World Cup",
+      "season": "2018",
+      "type": "group_stage_qualification",
+      "difficulty": "very_high",
+      "context": "In Group H of the 2018 World Cup, Japan and Senegal finished with identical records: 4 points each, 0 goal difference, 4 goals scored, and their head-to-head match was a 2-2 draw. Neither team had a red card.",
+      "disciplinary_records": {
+        "japan": "4 yellow cards in group stage",
+        "senegal": "6 yellow cards in group stage"
+      },
+      "question": "Which team advances to the knockout round and why? What was controversial about this situation?",
+      "answer": "Japan advanced over Senegal due to the fair play tiebreaker - they had fewer yellow cards (4 vs 6). This was the first time in World Cup history a team was eliminated on fair play. The controversy: Japan deliberately stopped attacking in their final game against Poland (losing 1-0), passing the ball around their own half to preserve their yellow card advantage, gambling that Colombia would beat Senegal (which they did). Japan advanced by literally not trying to win their match.",
+      "key_rule": "FIFA fair play tiebreaker counts disciplinary points: yellow card = -1 point, red card = -3 points",
+      "sources": [
+        "https://www.si.com/soccer/2018/06/28/japan-senegal-eliminated-fair-play-tiebreaker-rule-world-cup",
+        "https://www.washingtonpost.com/news/soccer-insider/wp/2018/06/28/everything-you-need-to-know-about-the-world-cups-fair-play-tiebreaker/",
+        "https://www.cbssports.com/soccer/news/world-cup-2018-japan-advances-over-senegal-on-yellow-card-tiebreaker-and-twitter-has-thoughts/"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Champions League 2020-21 Group H Three-Way Tie",
+      "competition": "UEFA Champions League",
+      "season": "2020-21",
+      "type": "group_stage_qualification",
+      "difficulty": "very_high",
+      "context": "Going into the final matchday of Group H, Manchester United, PSG, and RB Leipzig all had 9 points each (3 wins, 2 losses). Each team had different head-to-head records against the others. PSG plays Istanbul Basaksehir (0 pts) at home, while Leipzig hosts United.",
+      "head_to_head_records": {
+        "psg_vs_united": "PSG won 3-1 away, lost 2-1 at home (PSG leads on away goals)",
+        "psg_vs_leipzig": "PSG won 1-0 home, lost 2-1 away (PSG leads on away goals)",
+        "united_vs_leipzig": "United won 5-0 home, lost 3-2 away"
+      },
+      "final_matchday_results": {
+        "leipzig_vs_united": "Leipzig 3-2 Manchester United",
+        "psg_vs_basaksehir": "PSG 5-1 Istanbul Basaksehir"
+      },
+      "question": "After the final matchday, all three teams have 12 points. Which two teams advance and why?",
+      "answer": "PSG finishes 1st (qualified), RB Leipzig finishes 2nd (qualified), Manchester United finishes 3rd (eliminated to Europa League). The tiebreaker works as follows: In the three-way mini-league, PSG has the best record (4 points: 1W-1D vs each opponent on away goals rule), Leipzig has 2 points (split with United, lost to PSG), United has 2 points (split with Leipzig, lost to PSG). PSG tops the group. Between Leipzig and United for 2nd place, their head-to-head is split (each won at home), but Leipzig has the crucial away goal advantage (scored 2 in Manchester vs United's 2 in Leipzig, but Leipzig's 3-2 home win gives them better overall head-to-head goal difference).",
+      "key_rule": "UEFA uses head-to-head among tied teams first, then away goals in those matches",
+      "sources": [
+        "https://www.cbssports.com/soccer/news/champions-league-matchday-6-all-eyes-on-manchester-united-psg-and-leipzigs-group-h/",
+        "https://www.si.com/soccer/2020/12/02/champions-league-group-death-man-united-psg-rb-leipzig"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Aguero's 93:20 - Premier League 2011-12 Title Decider",
+      "competition": "Premier League",
+      "season": "2011-12",
+      "type": "championship",
+      "difficulty": "high",
+      "context": "Going into the final day, Manchester City and Manchester United are tied on 86 points. City has a +8 goal difference advantage. City plays QPR at home while United plays Sunderland away. City is losing 2-1 to QPR in the 90th minute. United has won 1-0 at Sunderland.",
+      "match_timeline": {
+        "halftime": "City 1-0 QPR (Zabaleta 39'), United 0-0 Sunderland",
+        "55min": "City 1-1 QPR (Cisse 48'), United still 0-0",
+        "66min": "City 1-2 QPR (Mackie 66'), United 1-0 (Rooney 20')",
+        "90min": "City 2-2 QPR (Dzeko 90+2'), United wins 1-0",
+        "90+3min": "City 3-2 QPR (Aguero 90+3'20'')"
+      },
+      "question": "Calculate the exact moment when the title changed hands and what the final standings look like. What unique record does this set?",
+      "answer": "At 90+2 minutes when Dzeko scored, City was still 2nd (89 pts, +9 GD) behind United (89 pts, +8 GD, champions due to head-to-head if points and GD equal). At 93:20, Aguero's goal gave City 3-2, making them champions with 89 points and +8 GD vs United's 89 points and +7 GD (United's +8 became +7 with their 1-0 win vs City's potential +10 becoming +8). This is the only Premier League title decided on goal difference, with the deciding goal scored 100 seconds from the final whistle.",
+      "key_rule": "Premier League uses goal difference, then goals scored, then head-to-head",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Manchester_City_F.C._3–2_Queens_Park_Rangers_F.C.",
+        "https://www.skysports.com/football/news/11661/11987122/premier-league-2011-12-season-final-day-drama-remembered"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Vietnam vs Lebanon AFC Asian Cup 2019 Fair Play",
+      "competition": "AFC Asian Cup",
+      "season": "2019",
+      "type": "best_third_place",
+      "difficulty": "high",
+      "context": "Vietnam and Lebanon are competing for the 4th and final best third-place spot. Both finished their groups with: 3 points, -1 goal difference, 2 goals scored. Vietnam finished third in Group D, Lebanon third in Group E.",
+      "disciplinary_records": {
+        "vietnam": "5 yellow cards, 0 red cards = -5 disciplinary points",
+        "lebanon": "6 yellow cards, 1 indirect red (two yellows) = -7 disciplinary points"
+      },
+      "question": "Which team qualifies for the knockout round as the 4th best third-placed team?",
+      "answer": "Vietnam qualifies over Lebanon due to better disciplinary record (-5 vs -7 points). Lebanon needed to beat North Korea by 4 goals but only won 4-1. Even if Lebanon had won by 4 goals to get better goal difference, the fair play tiebreaker would still eliminate them if other stats were equal. Vietnam's cleaner discipline (fewer yellow cards) proved decisive.",
+      "key_rule": "Best third-place ranking uses: points > goal difference > goals scored > disciplinary points",
+      "sources": [
+        "https://tuoitrenews.vn/news/sports/20190118/vietnam-advance-to-asian-cup-knockout-round-on-fair-play-tiebreaker/48591.html",
+        "https://en.wikipedia.org/wiki/2019_AFC_Asian_Cup"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Eredivisie 2006-07 Three-Way Title Race",
+      "competition": "Eredivisie",
+      "season": "2006-07",
+      "type": "championship",
+      "difficulty": "very_high",
+      "context": "Going into the final matchday, PSV (72 pts, +47 GD), AZ (72 pts, +52 GD), and Ajax (72 pts, +47 GD) are tied at the top. AZ leads on goal difference. Final matches: AZ at Excelsior, PSV vs Vitesse, Ajax at Willem II.",
+      "head_to_head_season_results": {
+        "psv_vs_ajax": "PSV won 1-0 at home, lost 5-1 away (Ajax dominates H2H)",
+        "psv_vs_az": "PSV won 1-0 and 3-1",
+        "az_vs_ajax": "AZ won 2-1, lost 3-2"
+      },
+      "final_results": {
+        "az_vs_excelsior": "AZ lost (played with 10 men from 15th minute)",
+        "psv_vs_vitesse": "PSV won 5-1 (Cocu's goal at 77' crucial)",
+        "ajax_vs_willem": "Ajax won 2-0"
+      },
+      "question": "What are the final standings? Which team wins the title? What's ironic about the result?",
+      "answer": "Final standings: PSV 1st (75 pts, +50 GD), Ajax 2nd (75 pts, +49 GD), AZ 3rd (72 pts, +52 GD). PSV wins the title. The irony: If Eredivisie used head-to-head (like La Liga/Serie A), Ajax would have won because they dominated PSV 5-1 vs 0-1 in direct matches. But Eredivisie uses goal difference, and PSV's +50 beats Ajax's +49. AZ, who led on goal difference going into the final day, collapsed to 3rd after their shock loss.",
+      "key_rule": "Eredivisie uses goal difference (not head-to-head) as primary tiebreaker",
+      "sources": [
+        "https://en.wikipedia.org/wiki/2006–07_Eredivisie",
+        "https://www.redcafe.net/threads/tiebreakers-head-to-head-vs-goal-difference-which-one-is-fairer.455202/"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Republic of Ireland vs Netherlands - 1990 World Cup Lots Drawing",
+      "competition": "FIFA World Cup",
+      "season": "1990",
+      "type": "group_stage_seeding",
+      "difficulty": "high",
+      "context": "In Group F of the 1990 World Cup, Republic of Ireland and Netherlands both finished with identical records: same points, same goal difference, same goals scored, and their head-to-head match was a 1-1 draw. Both teams qualified for the knockout round, but the order determines their opponent.",
+      "knockout_implications": {
+        "second_place": "Plays Romania in Genoa",
+        "third_place": "Plays defending champions West Germany in Milan"
+      },
+      "question": "How was the final group position determined? What was the outcome?",
+      "answer": "When all tiebreakers are exhausted (including fair play), FIFA uses drawing of lots - literally picking names from a hat. This was broadcast live with Sepp Blatter conducting the ceremony. Netherlands drew third place (face Germany), Ireland drew second place (face Romania). Ireland got the 'lucky' draw, avoiding the world champions. They went on to beat Romania on penalties, while Netherlands lost to Germany.",
+      "key_rule": "Drawing of lots is the ultimate tiebreaker when all other criteria are equal",
+      "sources": [
+        "https://www.the42.ie/republic-of-ireland-netherlands-italia-90-4097659-Jun2018/",
+        "https://en.wikipedia.org/wiki/1990_FIFA_World_Cup_Group_F"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Bundesliga Relegation Playoff Away Goals Abolition",
+      "competition": "Bundesliga",
+      "season": "2022-23",
+      "type": "relegation_playoff",
+      "difficulty": "high",
+      "context": "VfB Stuttgart (16th in Bundesliga) plays Hamburg (3rd in 2. Bundesliga) in the relegation playoff. First leg: Stuttgart 3-0 Hamburg. Second leg: Hamburg 3-1 Stuttgart. Aggregate: Stuttgart 4-3 Hamburg.",
+      "historical_comparison": {
+        "2018_19": "Union Berlin beat Stuttgart on away goals (aggregate 2-2, Union won)",
+        "2013_14": "Hamburg vs Greuther Furth: 1-1 aggregate, Hamburg won on away goals",
+        "post_2021": "Away goals rule abolished"
+      },
+      "question": "Under old rules (pre-2021), who would have survived? Under new rules, who survives?",
+      "answer": "Under new rules (post-2021): Stuttgart survives with 4-3 aggregate win - straightforward. Under old away goals rule: Stuttgart would STILL survive because Hamburg scored only 1 away goal (3-0 loss) while Stuttgart scored 1 away goal (3-1 loss). Away goals were equal, but aggregate was 4-3 to Stuttgart. However, if the second leg had been 3-0 to Hamburg (aggregate 3-3), then under old rules Hamburg survives (3 away goals vs 0), but under new rules it goes to extra time.",
+      "key_rule": "Bundesliga abolished away goals rule after 2021-22 season; now uses aggregate, then extra time, then penalties",
+      "sources": [
+        "https://www.90min.com/posts/how-bundesliga-relegation-play-off-works",
+        "https://www.bundesliga.com/en/faq/what-are-the-rules-and-regulations-of-soccer/how-does-promotion-and-relegation-work-in-the-bundesliga-10645"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Euro 2020 Best Third-Place Four-Way Tie",
+      "competition": "UEFA Euro",
+      "season": "2020",
+      "type": "best_third_place",
+      "difficulty": "very_high",
+      "context": "Six third-place teams compete for four knockout spots. Czech Republic (Group D), Portugal (Group F), Switzerland (Group A), Ukraine (Group C) all have 4 points. Finland (Group B) and Slovakia (Group E) have 3 points each.",
+      "third_place_records": {
+        "czech_republic": "4 pts, +1 GD, 3 goals scored",
+        "portugal": "4 pts, +1 GD, 7 goals scored",
+        "switzerland": "4 pts, -1 GD, 4 goals scored",
+        "ukraine": "3 pts, -1 GD, 4 goals scored",
+        "finland": "3 pts, -2 GD, 1 goal scored",
+        "slovakia": "3 pts, -5 GD, 2 goals scored"
+      },
+      "question": "Which four teams qualify? If Portugal and Czech Republic have same points and goal difference, how are they separated?",
+      "answer": "Qualified: Czech Republic (1st), Portugal (2nd), Switzerland (3rd), Ukraine (4th). Eliminated: Finland and Slovakia. Between Czech Republic and Portugal: Both have 4 points and +1 GD, but Portugal scored 7 goals vs Czech's 3 goals, so Portugal ranks higher on goals scored. However, the ranking table shows Czech Republic listed first possibly due to specific match results or secondary criteria. Switzerland qualifies despite -1 GD because they have more points than Ukraine (4 vs 3). The key is that 4-point teams always rank above 3-point teams regardless of goal difference.",
+      "key_rule": "Best third-place: points > goal difference > goals scored > wins > disciplinary points > Euro qualifying ranking",
+      "sources": [
+        "https://www.cbssports.com/soccer/news/euro-2020-tiebreaker-rules-standings-knockout-round-qualification-permutations-whos-in-out-of-the-last-16/",
+        "https://www.uefa.com/uefaeuro/history/news/026a-1286c3028f34-c072d2f81d9b-1000--who-needs-what-to-go-through-from-euro-2020-groups-qualifying-rules-how-many-teams-qualify-permutations-and-tiebreakers/"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Premier League Hypothetical Playoff Scenario",
+      "competition": "Premier League",
+      "season": "Hypothetical",
+      "type": "championship_or_relegation",
+      "difficulty": "very_high",
+      "context": "Three teams finish on 40 points with identical goal difference (+0) and identical goals scored (45). Their head-to-head results: Team A beat Team B 2-1 home, lost 0-1 away. Team B beat Team C 1-0 home, lost 0-2 away. Team C beat Team A 1-0 home, lost 1-2 away.",
+      "head_to_head_analysis": {
+        "team_a_vs_b": "A leads (3 pts vs 3 pts, +1 GD vs -1 GD)",
+        "team_b_vs_c": "C leads (3 pts vs 3 pts, +1 GD vs -1 GD)",
+        "team_c_vs_a": "A leads (3 pts vs 3 pts, +1 GD vs -1 GD)"
+      },
+      "question": "How would the Premier League resolve this three-way tie for a critical position (title or relegation)?",
+      "answer": "This creates a circular head-to-head (A>B, B<C, C<A in isolation, but overall each team has identical records). In a three-way mini-league: Each team played 4 games, each has 6 points (2W-0D-2L), each has 0 GD. Premier League would then apply: away goals in head-to-head matches. If still tied: total away goals scored in season. If still tied: total wins. If STILL tied after all criteria: a one-off playoff or mini knockout tournament at neutral venue - never happened in Premier League history but regulations exist for it.",
+      "key_rule": "Premier League playoff is ultimate tiebreaker for critical positions when all statistical criteria are exhausted",
+      "sources": [
+        "https://www.skysports.com/football/news/11095/13110690/premier-league-how-teams-will-be-separated-if-level-on-points-and-goal-difference-at-end-of-season",
+        "https://www.tntsports.co.uk/football/premier-league/2024-2025/premier-league-teams-points-goal-difference-play-off_sto20059081/story.shtml"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Champions League Away Goals in Three-Way Head-to-Head (Pre-2021)",
+      "competition": "UEFA Champions League",
+      "season": "2014-15 (Group D)",
+      "type": "group_stage_qualification",
+      "difficulty": "high",
+      "context": "Borussia Dortmund and Arsenal finished level on points in Group D. Their head-to-head matches: Dortmund 2-0 Arsenal (home), Arsenal 2-0 Dortmund (home). Perfectly mirrored results.",
+      "group_standings": {
+        "dortmund": "11 points",
+        "arsenal": "11 points",
+        "anderlecht": "5 points",
+        "galatasaray": "5 points"
+      },
+      "question": "Who wins the group? What tiebreaker is used?",
+      "answer": "Borussia Dortmund wins the group. Since head-to-head points are equal (3-3), head-to-head goal difference is equal (0), head-to-head goals scored are equal (2), and head-to-head away goals are equal (0 each), the tiebreaker falls to overall goal difference. Dortmund had +9 overall GD vs Arsenal's +6. This shows that perfectly mirrored results force the tiebreaker to cascade down multiple criteria.",
+      "key_rule": "When head-to-head is completely equal, overall tournament statistics apply",
+      "sources": [
+        "https://en.wikipedia.org/wiki/2014–15_UEFA_Champions_League_group_stage",
+        "https://dknation.draftkings.com/2023/11/28/23978850/champions-league-2023-group-stage-tiebreakers-rules-goal-differential-head-to-head-points-standings"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Serie A Scudetto Playoff Rule Change",
+      "competition": "Serie A",
+      "season": "2021-22 onwards",
+      "type": "championship",
+      "difficulty": "high",
+      "context": "After AC Milan won the 2021-22 title by 2 points over Inter (both racing until final matchday), Serie A introduced a new rule: If two teams are tied on points for the Scudetto AND tied on head-to-head record, a playoff match decides the champion.",
+      "historical_context": {
+        "old_rule": "Head-to-head > Goal difference > Goals scored > Drawing of lots",
+        "new_rule": "Head-to-head > PLAYOFF MATCH (for title only) > Goal difference (for other positions)"
+      },
+      "hypothetical_scenario": "Milan and Inter finish on 85 points. Head-to-head: Inter 1-0 Milan, Milan 2-1 Inter. Total: Inter 2 goals, Milan 2 goals. H2H GD: 0-0.",
+      "question": "Under old rules, who wins? Under new rules, what happens?",
+      "answer": "Under OLD rules: Both tied on H2H points (3-3), H2H GD (0), so it goes to overall goal difference. Under NEW rules (post-2022): A playoff match is held at neutral venue to decide the champion, avoiding the anticlimax of winning via goal difference or lots. This rule ONLY applies to the Scudetto race, not for European qualification or relegation - those still use head-to-head then goal difference.",
+      "key_rule": "Serie A now uses playoff for tied championship race, but only after head-to-head is exhausted",
+      "sources": [
+        "https://www.blackwhitereadallover.com/2022/6/30/23185664/serie-a-playoff-decide-title-champions-teams-level-on-points-goal-difference-head-to-head-record",
+        "https://www.cbssports.com/soccer/news/explaining-serie-a-tiebreakersscudetto-playoff-champions-league-race-for-top-four-spots-what-to-know/"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "logical_reasoning": "Can the model correctly apply cascading tiebreaker rules?",
+    "rule_comprehension": "Does the model understand different competitions use different tiebreaker systems?",
+    "scenario_analysis": "Can the model work through hypothetical outcomes based on different results?",
+    "mathematical_accuracy": "Are goal difference and head-to-head calculations correct?",
+    "edge_case_handling": "Can the model handle circular references, draws of lots, and fair play scenarios?"
+  },
+  "metadata": {
+    "total_scenarios": 12,
+    "competitions_covered": ["La Liga", "Premier League", "Champions League", "World Cup", "AFC Asian Cup", "Eredivisie", "Serie A", "Euro", "Bundesliga"],
+    "scenario_types": ["relegation", "championship", "group_stage_qualification", "best_third_place", "playoff"],
+    "difficulty_distribution": {
+      "high": 5,
+      "very_high": 7
+    }
+  }
+}
