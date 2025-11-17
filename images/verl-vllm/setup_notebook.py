@@ -62,18 +62,21 @@ def main():
     print(f"\n✓ uv available at: {uv_path}/uv")
 
     # Install packages using --system flag (for containers/notebooks)
+    # IMPORTANT: Install numpy first to avoid binary incompatibility
     install_steps = [
+        ("NumPy (base dependency)", ["numpy<2.0.0"]),
         ("PyTorch 2.9 with CUDA 12.4", ["--index-url", "https://download.pytorch.org/whl/cu124", "torch==2.9.0", "torchvision", "torchaudio"]),
         ("vLLM", ["vllm"]),
         ("FlashInfer", ["-i", "https://flashinfer.ai/whl/cu124/torch2.9/", "flashinfer-python"]),
         ("Ray with extras", ["ray[default,serve,tune]", "aiohttp", "aiohttp-cors", "py-spy", "gpustat", "prometheus_client", "opencensus"]),
-        ("verl and RL dependencies", [
+        ("Core RL dependencies", [
             "accelerate", "codetiming", "datasets", "dill", "hydra-core", "liger-kernel",
-            "numpy<2.0.0", "pandas", "peft", "pyarrow>=19.0.0", "pybind11", "pylatexenc",
+            "pandas", "peft", "pyarrow>=19.0.0", "pybind11", "pylatexenc",
             "tensordict>=0.8.0,<=0.10.0,!=0.9.0", "torchdata", "transformers", "wandb",
             "packaging>=20.0", "uvicorn", "fastapi", "latex2sympy2_extended", "math_verify",
-            "tensorboard", "ipykernel", "jupyter", "ipywidgets", "tqdm", "verl"
+            "tensorboard", "ipykernel", "jupyter", "ipywidgets", "tqdm"
         ]),
+        ("verl (install last)", ["verl"]),
     ]
 
     for description, packages in install_steps:
@@ -85,6 +88,15 @@ def main():
         if not success:
             print(f"Failed to install: {description}")
             return
+
+    # Fix numpy binary incompatibility by reinstalling packages with C extensions
+    print("\nReinstalling packages to fix numpy binary compatibility...")
+    packages_to_reinstall = ["ray", "tensordict", "datasets", "peft"]
+    for pkg in packages_to_reinstall:
+        run_command(
+            f"uv pip install --system --force-reinstall --no-deps {pkg}",
+            f"Reinstalling {pkg}"
+        )
 
     # Enable HF fast downloads
     import os
